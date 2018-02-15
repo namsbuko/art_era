@@ -9,22 +9,6 @@ class SignUpView(View):
     form_class = SignUpForm
     template_name = 'registration/signup.html'
 
-    def signup(request):
-        if request.method == 'POST':
-            form = SignUpForm(request.POST)
-            if form.is_valid():
-                user = form.save()
-                user.refresh_from_db()  # load the profile instance created by the signal
-                user.profile.birth_date = form.cleaned_data.get('birth_date')
-                user.save()
-                raw_password = form.cleaned_data.get('password1')
-                user = authenticate(username=user.username, password=raw_password)
-                login(request, user)
-                return redirect('home')
-        else:
-            form = SignUpForm()
-        return render(request, 'signup.html', {'form': form})
-
     def post(self, request):
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -35,7 +19,7 @@ class SignUpView(View):
             user.profile.fio = form.cleaned_data.get('fio')
             user.profile.phone = form.cleaned_data.get('phone')
             user.profile.user = user
-            user.profile.save()
+            user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
