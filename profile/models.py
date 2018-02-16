@@ -9,6 +9,16 @@ class Profile(models.Model):
     fio = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=15, blank=True)
 
+    city = models.CharField(max_length=30, blank=True, null=True)
+    birthday = models.DateField(blank=True, null=True)
+    about_yourself = models.TextField(max_length=300, blank=True, null=True)
+    status = models.CharField(max_length=150, blank=True, null=True)
+    avatar = models.FileField(upload_to='avatars/%Y/%m/%d', blank=True, null=True)
+
+    @property
+    def email(self):
+        return self.user.email
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
