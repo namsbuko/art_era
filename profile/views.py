@@ -57,7 +57,7 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request):
         profile = request.user.profile
-
+        profile.avatar_url = profile.avatar.url if profile.avatar else ''
         return render(request, self.template_name, {'profile': profile})
 
 
