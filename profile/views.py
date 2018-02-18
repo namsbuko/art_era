@@ -24,7 +24,7 @@ class SignUpView(View):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('/')
+            return redirect('home')
         return render(request, self.template_name, {'form': form})
 
     def get(self, request):
@@ -40,11 +40,9 @@ class EditProfileView(LoginRequiredMixin, View):
         form = self.form_class(request.POST, request.FILES, instance=user.profile)
         if form.is_valid():
             profile = form.save()
-            print(request.FILES)
-            print(form.cleaned_data)
             profile.user.email = form.cleaned_data['email']
             profile.user.save(update_fields=['email'])
-            return redirect('/')
+            return redirect('home')
         return render(request, self.template_name, {'form': form})
 
     def get(self, request):
@@ -55,6 +53,7 @@ class EditProfileView(LoginRequiredMixin, View):
 
 class ProfileView(LoginRequiredMixin, View):
     template_name = 'profile/info.html'
+    login_url = 'login'
 
     def get(self, request):
         profile = request.user.profile
