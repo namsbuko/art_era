@@ -28,7 +28,9 @@ class SignUpView(View):
         return render(request, self.template_name, {'form': form})
 
     def get(self, request):
-        return render(request, self.template_name, {'form': self.form_class()})
+        return redirect('home') \
+            if request.user.is_authenticated() \
+            else render(request, self.template_name, {'form': self.form_class()})
 
 
 class EditProfileView(LoginRequiredMixin, View):

@@ -16,14 +16,13 @@ class SignUpForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        print(User.objects.filter(email=email))
         if User.objects.filter(email=email):
             raise ValidationError('User with the same email already exist')
         return email
 
 
 class ProfileEditForm(forms.ModelForm):
-    email = forms.EmailField()
+    email = forms.EmailField(required=True)
 
     class Meta:
         model = Profile

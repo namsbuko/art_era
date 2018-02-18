@@ -22,10 +22,11 @@
 </header>
 <section>
 <div class="container">
-    <a href={% url "edit_profile" %}>Edit profile</a>
+    <a href={% url "profile_edit" %}>Edit profile</a>
 	<div class="row">
 		<div class="col-md-9">
             <p><a href ="{{ profile.avatar_url }}">avatar</a> </p>
+            <p>{{ profile.email }}</p>
             <p>{{ profile.fio }}</p>
             <p>{{ profile.city }}</p>
             <p>{{ profile.birthday }}</p>
