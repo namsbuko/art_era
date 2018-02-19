@@ -29,7 +29,7 @@ class SignUpView(View):
 
     def get(self, request):
         return redirect('home') \
-            if request.user.is_authenticated() \
+            if request.user.is_authenticated \
             else render(request, self.template_name, {'form': self.form_class()})
 
 
