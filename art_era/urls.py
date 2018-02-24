@@ -22,6 +22,7 @@ from art_era import settings
 urlpatterns = [
     url(r'^', include('core.urls')),
     url(r'^', include('profile.urls')),
+    url(r'^painting/', include('painting.urls')),
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^admin/', admin.site.urls),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
