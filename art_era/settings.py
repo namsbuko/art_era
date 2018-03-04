@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'profile.apps.ProfileConfig',
     'core.apps.CoreConfig',
     'painting.apps.PaintingConfig',
+    'collection.apps.CollectionConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
