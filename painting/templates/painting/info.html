@@ -1,53 +1,254 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <title>Редактирование личной инфы</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet">
-    </head>
-    <body>
-<header>
-<nav class="container">
-	<div class="logo navbar-brand">Артера</div>
-	<div class="header_search">
-		<div class="input-group col-md-12">
-			<input type="text" class="form-control input-lg" placeholder="Что ищем?" />
-			<span class="input-group-btn">
-				<button class="btn btn-info btn-lg" type="button">Найти</button>
-			</span>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1024">
+    <title>Заголовок страницы</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/datepicker.min.css' %}" rel="stylesheet">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+	<script src="{% static 'js/datepicker.min.js' %}"></script>
+	<script src="{% static 'js/jquery.ui-slider.js' %}	"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+<body class="page">
+	<header>
+		<div class="container">
+			<div class="flex">
+				<div class="header__brand">
+					<a href="" class="header__logo"><img src="{% static 'img/logo.png' %}" alt=""></a>
+					<div class="header__slogan d-none d-lg-block">Свободный рынок искусства</div>
+				</div>
+				<div class="header__nav-menu">
+					<a href="{% url 'search' %}" class="header__search"><img src="{% static 'img/header__search.png' %}" alt="">Поиск</a>
+					<div class="header__sep"></div>
+					{% if user.is_authenticated %}
+					<div class="header__user-menu is-authorized">
+						<a href="" class="user-menu__item d-none d-md-block">Обновления</a>
+						<a href="" class="user-menu__item d-none d-md-block">Сообщения</a>
+						<div class="user-menu__avatar" style="background-image: url({{ painting.owner.avatar.url }});"></div>
+						<div class="user-toggle-menu" style="display: none;">
+							<div class="user-toggle-menu__items">
+								<a href="{% url 'profile_info' %}" class="user-toggle-menu__item">Моя страница</a>
+								<a href="" class="user-toggle-menu__item">Личный кабинет</a>
+								<hr class="d-md-none">
+								<a href="" class="user-toggle-menu__item d-md-none">Обновления</a>
+								<a href="" class="user-toggle-menu__item d-md-none">Сообщения</a>
+								<hr class="visible-sm">
+								<a href="{% url 'profile_edit' %}" class="user-toggle-menu__item">Редактировать</a>
+								<hr>
+								<a class="lightgray" href="{% url 'logout' %}" class="user-toggle-menu__item">Выйти</a>
+							</div>
+						</div>
+					</div>
+					{% else %}
+					<div class="header__user-menu is-unauthorized">
+						<a href="{% url 'login' %}" class="user-menu__item">Войти</a>
+						<a href="{% url 'signup' %}" class="user-menu__item">Зарегистрироваться</a>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="wrapper">
+		<div class="picture-info">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-7">
+						<div class="picture-info__wrapper-left"><img src={{ painting.image.url }} alt=""></div>
+					</div>
+					<div class="col-md-5">
+						<div class="picture-info__wrapper-right">
+							<div class="picture-info__name">Звездная ночь</div>
+							<div class="picture-info__peoples">
+								<div class="picture-info__people"><span>Автор</span> <a href="">{{ painting.author }}</a></div>
+								<div class="picture-info__people"><span>Владелец</span> <a href="">{{ painting.owner.fio }}</a></div>
+							</div>
+							<div class="picture-info__prop">{{ painting.width }}х{{ painting.height }} см<br>{{ painting.material }}, {{ painting.colour }}</div>
+							<div class="picture-info__items">
+								<div class="picture-info__item">
+									<div class="picture-info__item__left">Техника исполнения</div>
+									<div class="picture-info__item__right">{{ painting.technique }}</div>
+								</div>
+								<div class="picture-info__item">
+									<div class="picture-info__item__left">Жанр</div>
+									<div class="picture-info__item__right">{{ painting.genre }}</div>
+								</div>
+							</div>
+							<div class="picture-info__docs"><img src="{% static 'img/icon__document__agree.png' %}" alt="">Есть документы подлинности</div>
+							<div class="picture-info_cost">{{ painting.cost }}</div>
+							<div class="picture-info__buy">Купить</div>
+							<div class="picture-info__other">
+								<div class="picture-info__see"><img src="{% static 'img/icon__eye.png' %}" alt="">205</div>
+								<div class="picture-info__reveiw"><a href="">5 рецензий</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="picture-trade">
+			<div class="container">
+				<h1>Торговля</h1>
+				<div class="row">
+					<div class="col-md-9">
+						<div class="o-section-sub-title">
+							<h4>График спроса и предложения</h4>
+							<div class="section-sub-title">
+								<div class="section-sub-title__tx">
+									<div class="picture-trade__small-icon picture-trade__small-icon--spros"></div>
+									<div class="picture-trade__small-text">Спрос</div>
+								</div>
+								<div class="section-sub-title__tx">
+									<div class="picture-trade__small-icon picture-trade__small-icon--predlozhenie"></div>
+									<div class="picture-trade__small-text">Предложение</div>
+								</div>
+							</div>
+						</div>
+						<img src="{% static 'img/graphic.jpg' %}" alt="" style="margin-bottom: 50px;">
+						<div class="o-section-sub-title"><h4>История ордеров</h4></div>
+						<div class="history-order">
+							<div class="history-order__header">
+								<div class="history-order__col-1">Кем выставлен</div>
+								<div class="history-order__col-2">Действут до</div>
+								<div class="history-order__col-3">Сумма, Р</div>
+								<div class="history-order__col-4">Статус</div>
+							</div>
+							<div class="history-order__row">
+								<div class="history-order__col-1">Константин Константинопольский</div>
+								<div class="history-order__col-2">01.02.2018 14:00</div>
+								<div class="history-order__col-3">155 000</div>
+								<div class="history-order__col-4">Ожидание</div>
+							</div>
+							<div class="history-order__row">
+								<div class="history-order__col-1">Валерий Филимонов</div>
+								<div class="history-order__col-2">08.12.2018 14:00</div>
+								<div class="history-order__col-3">180 000</div>
+								<div class="history-order__col-4">Ожидание</div>
+							</div>
+							<div class="history-order__row">
+								<div class="history-order__col-1">Сергей Спиридонов</div>
+								<div class="history-order__col-2">15.10.2018 14:00</div>
+								<div class="history-order__col-3">10 000</div>
+								<div class="history-order__col-4">Ожидание</div>
+							</div>
+							<div class="history-order__row">
+								<div class="history-order__col-1">Анонимный ордер</div>
+								<div class="history-order__col-2">01.10.2018 14:00</div>
+								<div class="history-order__col-3">140 000</div>
+								<div class="history-order__col-4">Ожидание</div>
+							</div>
+							<div class="history-order__row">
+								<div class="history-order__col-1">Иван Константинопольский</div>
+								<div class="history-order__col-2">01.09.2018 14:00</div>
+								<div class="history-order__col-3">165 000</div>
+								<div class="history-order__col-4">Ожидание</div>
+							</div>
+							<div class="history-order__row history-order__row--myself-order">
+								<div class="history-order__col-1">Анонимный ордер</div>
+								<div class="history-order__col-2">15.09.2018 14:00</div>
+								<div class="history-order__col-3">160 000</div>
+								<div class="history-order__col-4">Отменить</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 picture-trade__sidebar">
+						<h4>Название блока</h4>
+						<form action="">
+							<div class="form-group">
+							    <label for="summa-ordera">Сумма ордера, Р</label>
+							    <input type="text" class="form-control" id="summa-ordera" placeholder="">
+							</div>
+							<div class="form-group" style="margin-bottom: 30px;">
+							    <label for="data-ordera">Действует до</label>
+							    <input type="text" class="form-control datepicker-here" data-timepicker="true" id="data-ordera" placeholder="">
+							</div>
+							<div class="form-check" style="margin-bottom: 30px;">
+								<input class="form-check-input" type="checkbox" value="" id="anonim-order">
+								<label class="form-check-label" for="anonim-order">Default checkbox</label>
+							</div>
+							<hr>
+							<div class="form-group">
+								<div class="form-group__title">Расходы по доставке</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" id="dostavka-pokup" value="option1" name="dostavka-order" checked>
+									<label class="form-check-label" for="dostavka-pokup">Покупатель</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" id="dostavka-prodav" value="option2" name="dostavka-order">
+									<label class="form-check-label" for="dostavka-prodav">Продавец</label>
+								</div>
+								</div>
+							<div type="submit" class="picture-trade__order-submit">Выставить ордер</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="picture-review">
+			<div class="container">
+				<div class="picture-review__title">
+					<h1>Рецензии</h1>
+					<div class="picture-review__title-reviews">
+						<div class="title-reviews__items">
+							<div class="title-review__item title-review__item--positive">
+								<div class="title-review__item-count ">3</div>
+								<div class="title-review__item-txt">положительных</div>
+							</div>
+							<div class="title-review__item title-review__item--normal">
+								<div class="title-review__item-count">2</div>
+								<div class="title-review__item-txt">нейтральных</div>
+							</div>
+							<div class="title-review__item title-review__item--bad">
+								<div class="title-review__item-count">1</div>
+								<div class="title-review__item-txt">отрицательных</div>
+							</div>
+						</div>
+					</div>
+					<div class="picture-review__add-review btn">Написать рецензию</div>
+				</div>
+				<div class="picture-review__items">
+					<div class="picture-review__item picture-review__item--positive">
+						<div class="picture-review__sidebar">
+							<div class="picture-review__user">
+								<div class="review-user__avatar">
+									<img src="{% static 'img/review__avatar.png' %}" alt="">
+								</div>
+								<div class="review-user__name">Сальвадор Дали</div>
+								<div class="review-user__link"><a href="">205 рецензий</a></div>
+								<div class="review-user__link"><a href="">оценки</a></div>
+							</div>
+						</div>
+						<div class="picture-review__wrapper">
+							<div class="picture-review__quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>Nunc iaculis, enim eu mollis scelerisque, velit.</div>
+							<div class="picture-review__txt">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc iaculis, enim eu&nbsp;mollis scelerisque, velit libero maximus justo, nec dignissim arcu eros lacinia risus.</p>
+								<p>Morbi feugiat ante velit, id&nbsp;viverra justo bibendum sed. Suspendisse nec nisl vel tellus semper malesuada. Duis eleifend augue in&nbsp;dignissim scelerisque.</p>
+								<p>Nam auctor, dui eget finibus malesuada, magna libero pharetra odio, sed cursus ligula magna non felis.</p>
+								<p>Nam ultrices congue dui, ac&nbsp;dictum tortor pellentesque&nbsp;at. Pellentesque id&nbsp;nunc vulputate, semper metus&nbsp;id, maximus nibh. Quisque auctor felis nec egestas hendrerit. Phasellus venenatis, lacus ac&nbsp;consectetur vulputate, sapien purus viverra risus, vel vestibulum ipsum diam vitae arcu.</p>
+								<p>Morbi feugiat ante velit, id&nbsp;viverra justo bibendum sed. Suspendisse nec nisl vel tellus semper malesuada. Duis eleifend augue in&nbsp;dignissim scelerisque.</p>
+								<p>Nam auctor, dui eget finibus malesuada, magna libero pharetra odio, sed cursus ligula magna non felis.</p>
+							</div>
+							<div class="picture-review__footer">
+								<div class="picture-review__comments">
+									<a href=""><img src="{% static 'img/chat.png' %}" alt="">Комментарии</a>
+								</div>
+								<div class="picture-review__profit">
+									<div class="review-profit__title">Полезная рецензия?</div>
+									<div class="review-profit__up"><span>205</span>Да</div>
+									<div class="review-profit__down"><span>18</span>Нет</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!- Конец рецензии-->
+				</div>
+			</div>
 		</div>
 	</div>
-	<a href="" class="header_reg">Регистрация</a>
-	<a href="" class="header_auth">Войти</a>
-	<div class="header_user"></div>
-</nav>
-</header>
-<section>
-<div class="container">
-	<div class="row">
-		<a href="picture_page_edit.html">Редактировать</a>
-		</div>
-		<div class="col-md-9">
-			<h1>Название ПИ {{ painting.name }}</h1>
-			<div>Автор (кто написал) {{ painting.author }}</div>
-			<div>Владелец (у кого сейчас в собствености) {{ painting.owner.fio }}</div>
-			<div>Год создания (когда написана) {{ painting.creation_year }}</div>
-			<div>Описание (Место создания и история) {{ painting.description }}</div>
-			<div>Размеры {{ painting.height }} {{ painting.width }}</div>
-			<div>Материал {{ painting.material }}</div>
-			<div>Техника исполнения {{ painting.technique }}</div>
-			<div>Жанр {{ painting.genre }}</div>
-			<div>Цвет {{ painting.colour }}</div>
-			<p><a href ="{{ painting.image.url }}">image</a> </p>
-			<div>Местоположение {{ painting.location }}</div>
-		</div>
-	</div>
-</div>
-</section>
-<footer>
-</footer>	
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </body>
+</body>
 </html>
