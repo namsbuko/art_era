@@ -1,46 +1,141 @@
-<!doctype html>
+{% load i18n %}
+<!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <title>Редактирование личной инфы</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet">
-    </head>
-    <body>
-<header>
-<nav class="container">
-	<div class="logo navbar-brand">Артера</div>
-	<div class="header_search">
-		<div class="input-group col-md-12">
-			<input type="text" class="form-control input-lg" placeholder="Что ищем?" />
-			<span class="input-group-btn">
-				<button class="btn btn-info btn-lg" type="button">Найти</button>
-			</span>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1024">
+    <title>Заголовок страницы</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'css/jquery.fancybox.min.css' %}">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+</head>
+<body class="page">
+	<header>
+		<div class="container">
+			<div class="flex">
+				<div class="header__brand">
+					<a href="" class="header__logo"><img src="{% static 'img/logo.png' %}" alt=""></a>
+					<div class="header__slogan d-none d-lg-block">Свободный рынок искусства</div>
+				</div>
+				<div class="header__nav-menu">
+					<a href="" class="header__search"><img src="{% static 'img/header__search.png' %}" alt="">Поиск</a>
+					<div class="header__sep"></div>
+					<div class="header__user-menu is-unauthorized" style="display: none;">
+						<a href="" class="user-menu__item">Войти</a>
+						<a href="" class="user-menu__item">Зарегистрироваться</a>
+					</div>
+					<div class="header__user-menu is-authorized">
+						<a href="" class="user-menu__item d-none d-md-block">Обновления</a>
+						<a href="" class="user-menu__item d-none d-md-block">Сообщения</a>
+						<div class="user-menu__avatar" style="background-image: url({{ profile.avatar_url }});"></div>
+						<div class="user-toggle-menu" style="display: none;">
+							<div class="user-toggle-menu__items">
+								<a href="{% url 'profile_info' %}" class="user-toggle-menu__item">Моя страница</a>
+								<a href="" class="user-toggle-menu__item">Личный кабинет</a>
+								<hr class="d-md-none">
+								<a href="" class="user-toggle-menu__item d-md-none">Обновления</a>
+								<a href="" class="user-toggle-menu__item d-md-none">Сообщения</a>
+								<hr class="visible-sm">
+								<a href="{% url 'profile_edit' %}" class="user-toggle-menu__item">Редактировать</a>
+								<hr>
+								<a class="lightgray" href="{% url 'logout' %}" class="user-toggle-menu__item">Выйти</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="wrapper">
+		<div class="container user-info">
+			<div class="row">
+				<div class="col-sm-3 col-lg-3 user-info__sidebar">
+					<div class="user-info__avatar" style="background-image: url({{ profile.avatar_url }});"></div>
+					<a href="{% url 'profile_edit' %}" class="user-info__link-edit">Редактировать</a>
+				</div>
+				<div class="col-sm-9 col-lg-9">
+					<div class="user-info__title">{{ profile.fio }}</div>
+					<div class="user-info__subtitle">{{ profile.status }}, {{ profile.city }}</div>
+					<a data-fancybox data-src="#resume" href="javascript:;" class="user-info__link-resume">Посмотреть резюме</a>
+					<div class="container" style="display: none;" id="resume">
+						{{ profile.about_yourself }}
+					</div>
+					<div class="user-info__progress">
+						<div class="progress__item">
+							<div class="progress__title">4,2</div>
+							<div class="progress_subtitle">Рейтинг</div>
+						</div>
+						<div class="progress__item">
+							<div class="progress__title">{{ profile.gallery_cost }}</div>
+							<div class="progress_subtitle">Стоимость галереи</div>
+						</div>
+						<div class="progress__item">
+							<div class="progress__title">{{ profile.paintings_count }}</div>
+							<div class="progress_subtitle">Картин создано</div>
+						</div>
+						<div class="progress__item">
+							<div class="progress__title">40</div>
+							<div class="progress_subtitle">Картин продано</div>
+						</div>
+						<div class="progress__item">
+							<div class="progress__title">2</div>
+							<div class="progress_subtitle">Рецензий</div>
+						</div>
+						<div class="progress__item">
+							<div class="progress__title">10</div>
+							<div class="progress_subtitle">Подписчиков</div>
+						</div>
+					</div>
+					<div class="user-info__btns">
+						<div class="btn"><img src="{% static 'img/bell.png' %}">Подписаться</div>
+						<div class="btn"><img src="{% static 'img/message.png' %}">Написать сообщение</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="user-gallery">
+			<div class="container">
+				<div class="container__header">
+					<h1 class="title-page">Галерея</h1>
+					<div class="container__header__btn btn"><a href="{% url 'painting_add' %}">Добавить картину</a></div>
+				</div>
+				<div class="content">
+					<div class="user-gallery__grid">
+						{% for painting in profile.paintings.all %}
+						<div class="user-gallery__picture">
+							<div class="user-gallery__o-picture">
+								<div class="user-gallery__img"><img src="{{ painting.image.url}}" alt=""></div>
+								<div class="user-gallery__text">
+									<div class="user-gallery__left">
+										<div class="user-gallery__title">{{ painting.name }}</div>
+										<div class="user-gallery__size">{{ painting.width }} х {{ painting.height }} см</div>
+									</div>
+									<div class="user-gallery__right">
+										<div class="user-gallery__cost">
+											<div class="user-gallery__cost__icon">$</div>
+											<div class="user-gallery__cost__text">{{ painting.cost }}</div>
+										</div>
+										<div class="user-gallery__max-order">
+											<div class="user-gallery__max-order__icon">
+												<img src="{% static 'img/icon__graphic.png' %}" alt="">
+											</div>
+											<div class="user-gallery__max-order__text">180 000</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="header_user"></div>
-</nav>
-</header>
-<section>
-<div class="container">
-    <a href={% url "profile_edit" %}>Edit profile</a>
-	<div class="row">
-		<div class="col-md-9">
-            <p><a href ="{{ profile.avatar_url }}">avatar</a> </p>
-            <p>{{ profile.email }}</p>
-            <p>{{ profile.fio }}</p>
-            <p>{{ profile.city }}</p>
-            <p>{{ profile.birthday }}</p>
-            <p>{{ profile.about_yourself }}</p>
-            <p>{{ profile.pa_count }}</p>
-            <p>{{ profile.status }}</p>
-		</div>
-	</div>
-</div>
-</section>
-<footer>
-</footer>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </body>
+</body>
+
+
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.fancybox.min.js' %}"></script>
 </html>

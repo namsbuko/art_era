@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -18,6 +19,15 @@ class Profile(models.Model):
     @property
     def email(self):
         return self.user.email
+
+    @property
+    def gallery_cost(self):
+        total = self.paintings.aggregate(total=Sum('cost')).get('total')
+        return total if total else 0
+
+    @property
+    def paintings_count(self):
+        return self.paintings.count()
 
 
 @receiver(post_save, sender=User)
