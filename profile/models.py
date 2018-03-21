@@ -14,7 +14,7 @@ class Profile(models.Model):
     longitude = models.FloatField(blank=True, default=0.0)
     latitude = models.FloatField(blank=True, default=0.0)
     birthday = models.CharField(max_length=30, blank=True, default='')
-    about_yourself = models.TextField(max_length=1300, blank=True, default='')
+    about_yourself = models.TextField(max_length=5000, blank=True, default='')
     status = models.CharField(max_length=150, blank=True, default='')
     avatar = models.FileField(upload_to='avatars/%Y/%m/%d', blank=True, null=True)
 
