@@ -29,7 +29,9 @@
 					<div class="header__user-menu is-authorized">
 						<a href="" class="user-menu__item d-none d-md-block">Обновления</a>
 						<a href="" class="user-menu__item d-none d-md-block">Сообщения</a>
+						{% if painting.owner.avatar %}
 						<div class="user-menu__avatar" style="background-image: url({{ painting.owner.avatar.url }});"></div>
+						{% endif %}
 						<div class="user-toggle-menu" style="display: none;">
 							<div class="user-toggle-menu__items">
 								<a href="{% url 'profile_info' %}" class="user-toggle-menu__item">Моя страница</a>
