@@ -1,11 +1,11 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import TemplateView
 
 from profile.forms import SignUpForm, ProfileEditForm
-
+from profile.models import Profile
 
 class SignUpView(View):
     form_class = SignUpForm
@@ -66,3 +66,12 @@ class ProfileView(LoginRequiredMixin, View):
 
 class ProfileMessageView(LoginRequiredMixin, TemplateView):
     template_name = 'profile/messages.html'
+
+
+class ProfileDetailView(LoginRequiredMixin, View):
+    template_name = 'profile/info.html'
+    login_url = 'login'
+
+    def get(self, request, profile_id):
+        profile = get_object_or_404(Profile, pk=profile_id)
+        return render(request, self.template_name, {'profile': profile, 'no_edit': True})
