@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=1024">
+    <title>Заголовок страницы</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+</head>
+<body class="page user-massage">
+	<header>
+		<div class="container">
+			<div class="flex">
+				<div class="header__brand">
+					<a href="" class="header__logo"><img src="img/logo.png" alt=""></a>
+					<div class="header__slogan d-none d-lg-block">Свободный рынок искусства</div>
+				</div>
+				<div class="header__nav-menu">
+					<a href="" class="header__search"><img src="img/header__search.png" alt="">Поиск</a>
+					<div class="header__sep"></div>
+					<div class="header__user-menu is-unauthorized" style="display: none;">
+						<a href="" class="user-menu__item">Войти</a>
+						<a href="" class="user-menu__item">Зарегистрироваться</a>
+					</div>
+					<div class="header__user-menu is-authorized">
+						<a href="" class="user-menu__item d-none d-md-block">Обновления</a>
+						<a href="" class="user-menu__item d-none d-md-block">Сообщения</a>
+						<div class="user-menu__avatar" style="background-image: url(img/avatar.png);"></div>
+						<div class="user-toggle-menu" style="display: none;">
+							<div class="user-toggle-menu__items">
+								<a href="" class="user-toggle-menu__item">Моя страница</a>
+								<a href="" class="user-toggle-menu__item">Личный кабинет</a>
+								<hr class="d-md-none">
+								<a href="" class="user-toggle-menu__item d-md-none">Обновления</a>
+								<a href="" class="user-toggle-menu__item d-md-none">Сообщения</a>
+								<hr class="visible-sm">
+								<a href="" class="user-toggle-menu__item">Редактировать</a>
+								<hr>
+								<a class="lightgray" href="" class="user-toggle-menu__item">Выйти</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 o-user-massage tab-content">
+					<div class="user-massages__items tab-pane fade show active" id="lorem" role="tabpanel">
+						<div class="user-massages__item">
+							<div class="user-massages__user-ava"><img src="img/massages__user-ava.png" alt=""></div>
+							<div class="user-massages__box">
+								<div class="user-massages__txt">
+									Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio quat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.
+								</div>
+								<div class="user-massages__time">Сегодня в 16:10</div>
+							</div>
+						</div>
+						<div class="user-massages__item user-massages__item--my">
+							<div class="user-massages__box">
+								<div class="user-massages__txt">
+									Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio quat auctor eu in elit.
+								</div>
+								<div class="user-massages__time">Сегодня в 16:14</div>
+							</div>
+							<div class="user-massages__user-ava"><img src="img/massages__user-ava-2.png" alt=""></div>
+						</div>
+						<div class="user-massages__item">
+							<div class="user-massages__user-ava"><img src="img/massages__user-ava.png" alt=""></div>
+							<div class="user-massages__box">
+								<div class="user-massages__txt">
+									Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.
+								</div>
+								<div class="user-massages__time">Вчера в 19:46</div>
+							</div>
+						</div>
+					</div>
+					<div class="user-massages__items tab-pane fade show active" id="ipsum" role="tabpanel">
+						<div class="user-massages__item">
+							<div class="user-massages__user-ava"><img src="img/massages__user-ava.png" alt=""></div>
+							<div class="user-massages__box">
+								<div class="user-massages__txt">
+									Duis sed odio sit amet nibh.
+								</div>
+								<div class="user-massages__time">Сегодня в 16:10</div>
+							</div>
+						</div>
+						<div class="user-massages__item user-massages__item--my">
+							<div class="user-massages__box">
+								<div class="user-massages__txt">
+									Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio quat auctor eu in elit.
+								</div>
+								<div class="user-massages__time">Сегодня в 16:14</div>
+							</div>
+							<div class="user-massages__user-ava"><img src="img/massages__user-ava-2.png" alt=""></div>
+						</div>
+						<div class="user-massages__item">
+							<div class="user-massages__user-ava"><img src="img/massages__user-ava.png" alt=""></div>
+							<div class="user-massages__box">
+								<div class="user-massages__txt">
+									Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.
+								</div>
+								<div class="user-massages__time">Вчера в 19:46</div>
+							</div>
+						</div>
+					</div>
+					<div class="user-massages__items tab-pane fade show active" id="dolor" role="tabpanel">
+						<div class="user-massages__item">
+							<div class="user-massages__user-ava"><img src="img/massages__user-ava.png" alt=""></div>
+							<div class="user-massages__box">
+								<div class="user-massages__txt">
+									Duis sed odio sit amet nibh. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.
+								</div>
+								<div class="user-massages__time">Сегодня в 16:10</div>
+							</div>
+						</div>
+						<div class="user-massages__item user-massages__item--my">
+							<div class="user-massages__box">
+								<div class="user-massages__txt">
+									Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio quat auctor eu in elit.
+								</div>
+								<div class="user-massages__time">Сегодня в 16:14</div>
+							</div>
+							<div class="user-massages__user-ava"><img src="img/massages__user-ava-2.png" alt=""></div>
+						</div>
+						<div class="user-massages__item">
+							<div class="user-massages__user-ava"><img src="img/massages__user-ava.png" alt=""></div>
+							<div class="user-massages__box">
+								<div class="user-massages__txt">
+									Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.
+								</div>
+								<div class="user-massages__time">Вчера в 19:46</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<ul class="col-md-4 user-massage__sidebar nav nav-tabs nav-tabs--vertical nav-tabs--left" role="navigation">
+					<li class="nav-item">
+						<a href="#lorem" class="user-massage__sidebar__tab nav-link active" data-toggle="tab" role="tab" aria-controls="lorem">
+							<span class="massage-sidebar__ava">
+								<span class="massage-sidebar__note">3</span>
+								<img src="img/massages__user-ava.png" alt="">
+							</span>
+							<span class="massage__sidebar__txt">
+								<div class="massage__sidebar__name">John Appleseed</div>
+								<div class="massage__sidebar__txt-mes">Lorem ipsum dolor sit...</div>
+							</span>
+							<span class="massage__sidebar__time">16:10</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#ipsum" class="user-massage__sidebar__tab nav-link" data-toggle="tab" role="tab" aria-controls="ipsum">
+							<span class="massage-sidebar__ava">
+								<span class="massage-sidebar__note">3</span>
+								<img src="img/massages__user-ava.png" alt="">
+							</span>
+							<span class="massage__sidebar__txt">
+								<div class="massage__sidebar__name">John Appleseed</div>
+								<div class="massage__sidebar__txt-mes">Lorem ipsum dolor sit...</div>
+							</span>
+							<span class="massage__sidebar__time">16:10</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#dolor" class="user-massage__sidebar__tab nav-link" data-toggle="tab" role="tab" aria-controls="dolor">
+								<span class="massage-sidebar__ava">
+								<span class="massage-sidebar__note">6</span>
+								<img src="img/massages__user-ava.png" alt="">
+							</span>
+							<span class="massage__sidebar__txt">
+								<div class="massage__sidebar__name">John Appleseed</div>
+								<div class="massage__sidebar__txt-mes">Lorem ipsum dolor sit...</div>
+							</span>
+							<span class="massage__sidebar__time">16:10</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="row user-massage__write">
+				<form action="">
+					<div class="user-massage__write__input">
+						<input type="textarea" id="summa-ordera" placeholder="">
+					</div>
+					<div type="submit" class="user-massage__write__btn"><img src="img/icon__send.png" alt=""></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="js/datepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+</html>
