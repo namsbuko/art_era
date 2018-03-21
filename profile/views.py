@@ -61,7 +61,10 @@ class ProfileView(LoginRequiredMixin, View):
     def get(self, request):
         profile = request.user.profile
         profile.avatar_url = profile.avatar.url if profile.avatar else ''
-        return render(request, self.template_name, {'profile': profile})
+        profile_url = request.user.profile.avatar.url \
+            if request.user.profile.avatar else ''
+        return render(request, self.template_name, {'profile': profile,
+                                                    'profile_url': profile_url})
 
 
 class ProfileMessageView(LoginRequiredMixin, TemplateView):
@@ -74,4 +77,10 @@ class ProfileDetailView(LoginRequiredMixin, View):
 
     def get(self, request, profile_id):
         profile = get_object_or_404(Profile, pk=profile_id)
-        return render(request, self.template_name, {'profile': profile, 'no_edit': True})
+        context = {
+            'profile': profile,
+            'no_edit': True,
+            'profile_url': request.user.profile.avatar.url if
+            request.user.profile.avatar else ''
+        }
+        return render(request, self.template_name, context)
