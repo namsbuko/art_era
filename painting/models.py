@@ -7,15 +7,37 @@ class Painting(models.Model):
                               related_name='paintings')
 
     image = models.FileField(upload_to='painting/%Y/%m/%d')
-    cost = models.PositiveIntegerField()
-    name = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
-    creation_year = models.PositiveSmallIntegerField()
-    location = models.CharField(max_length=100)
-    height = models.PositiveSmallIntegerField()
-    width = models.PositiveSmallIntegerField()
-    material = models.CharField(max_length=100)
-    technique = models.CharField(max_length=100)
-    description = models.TextField(max_length=1000)
-    genre = models.CharField(max_length=100)
-    colour = models.CharField(max_length=100)
+    cost = models.PositiveIntegerField(default=10000)
+    name = models.CharField(max_length=100, blank=True)
+    author = models.CharField(max_length=100, default='', blank=True)
+    creation_year = models.PositiveSmallIntegerField(default=2000)
+    location = models.CharField(max_length=100, default='', blank=True)
+    height = models.PositiveSmallIntegerField(default=100)
+    width = models.PositiveSmallIntegerField(default=100)
+    material = models.CharField(max_length=100, default='холст')
+    description = models.TextField(max_length=1000, default='', blank=True)
+    longitude = models.FloatField(default=0.0)
+    latitude = models.FloatField(default=0.0)
+
+    TECHNIQUE_CHOICES = (
+        ('Масло', 'Масло'),
+        ('Гуашь', 'Гуашь'),
+        ('Пастель', 'Пастель'),
+        ('Тушь', 'Тушь'),
+        ('Акварель', 'Акварель'),
+    )
+    technique = models.CharField(max_length=100, choices=TECHNIQUE_CHOICES)
+
+    GENRE_CHOICES = (
+        ('Абстракционизм', 'Абстракционизм'),
+        ('Гиперреализм', 'Гиперреализм'),
+        ('Городской пейзаж', 'Городской пейзаж'),
+        ('Импрессионизм', 'Импрессионизм'),
+        ('Классицизм', 'Классицизм'),
+        ('Морской пейзаж', 'Морской пейзаж'),
+        ('Натюрморт', 'Натюрморт'),
+        ('Пейзаж', 'Пейзаж'),
+        ('Портрет', 'Портрет'),
+        ('Сюрреализм', 'Сюрреализм'),
+    )
+    genre = models.CharField(max_length=100, choices=GENRE_CHOICES)

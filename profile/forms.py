@@ -8,7 +8,7 @@ from profile.models import Profile
 
 class SignUpForm(UserCreationForm):
     fio = forms.CharField(max_length=150)
-    phone = forms.CharField(max_length=15)
+    phone = forms.CharField(max_length=15, required=False)
 
     class Meta:
         model = User
