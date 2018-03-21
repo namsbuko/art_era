@@ -48,9 +48,15 @@ class PaintingEditView(LoginRequiredMixin, UserPassesTestMixin, View):
         return self.request.user.profile == self.painting.owner
 
 
-class PaintingInfoView(DetailView):
+class PaintingInfoView(LoginRequiredMixin, View):
     template_name = 'painting/info.html'
+    login_url = 'login'
 
-    pk_url_kwarg = 'painting_id'
-    context_object_name = 'painting'
-    queryset = Painting.objects.all()
+    def get(self, request, painting_id):
+        profile = request.user.profile
+        painting = get_object_or_404(Painting, pk=painting_id)
+        context = {
+            'profile': profile,
+            'painting': painting
+        }
+        return render(request, self.template_name, context)

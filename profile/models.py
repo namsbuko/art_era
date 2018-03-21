@@ -12,7 +12,7 @@ class Profile(models.Model):
 
     city = models.CharField(max_length=30, blank=True, default='')
     longitude = models.FloatField(blank=True, default=0.0)
-    latitude = models.FloatField(default=0.0)
+    latitude = models.FloatField(blank=True, default=0.0)
     birthday = models.CharField(max_length=30, blank=True, default='')
     about_yourself = models.TextField(max_length=1300, blank=True, default='')
     status = models.CharField(max_length=150, blank=True, default='')
