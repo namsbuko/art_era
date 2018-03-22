@@ -26,6 +26,7 @@ class Painting(models.Model):
         ('Тушь', 'Тушь'),
         ('Акварель', 'Акварель'),
     )
+    TECHNIQUES = ('Масло', 'Гуашь', 'Пастель', 'Тушь', 'Акварель')
     technique = models.CharField(max_length=100, choices=TECHNIQUE_CHOICES)
 
     GENRE_CHOICES = (
@@ -40,8 +41,11 @@ class Painting(models.Model):
         ('Портрет', 'Портрет'),
         ('Сюрреализм', 'Сюрреализм'),
     )
+    GENRES = ('Абстракционизм', 'Гиперреализм', 'Городской пейзаж', 'Импрессионизм',
+              'Классицизм', 'Морской пейзаж', 'Натюрморт', 'Пейзаж',
+              'Портрет', 'Сюрреализм')
     genre = models.CharField(max_length=100, choices=GENRE_CHOICES)
-
 
     def __str__(self):
         return self.name
+

@@ -1,10 +1,16 @@
+from datetime import datetime
+
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.db.models import Q, Min, Max
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import View
-from django.views.generic import DetailView
+
+from rest_framework import generics, status
+from rest_framework.response import Response
 
 from painting.forms import PaintingForm
 from painting.models import Painting
+from painting.serializers import PaintingSerializer
 
 
 class PaintingAddView(LoginRequiredMixin, View):
@@ -60,3 +66,45 @@ class PaintingInfoView(LoginRequiredMixin, View):
             'painting': painting
         }
         return render(request, self.template_name, context)
+
+
+class PaintingListView(generics.ListAPIView):
+    serializer_class = PaintingSerializer
+
+    def get_params(self):
+        params = Painting.objects\
+            .aggregate(min_cost=Min('cost'), max_cost=Max('cost'),
+                       max_year=Min('creation_year'), min_year=Max('creation_year'))
+        return {
+            'genres': Painting.GENRES,
+            'techniques': Painting.TECHNIQUES,
+            'cost': {'min': params['min_cost'], 'max': params['max_cost']},
+            'year': {'min': params['min_year'], 'max': params['max_year']},
+        }
+
+    def get_queryset(self):
+        genres = self.kwargs.get('genres')
+        techniques = self.kwargs.get('techniques')
+        min_cost = self.kwargs.get('min_cost') or 0
+        max_cost = self.kwargs.get('max_cost') or 10000000
+        min_year = self.kwargs.get('min_year') or 0
+        max_year = self.kwargs.get('max_year') or datetime.now().year
+
+        f = Q(cost__gte=min_cost, cost__lte=max_cost)
+        f &= Q(creation_year__gte=min_year, creation_year__lte=max_year)
+        if genres:
+            f &= Q(genre__in=filter(None, genres.split(',')))
+        if techniques:
+            f &= Q(technique__in=filter(None, techniques.split(',')))
+
+        return Painting.objects.filter(f)
+
+    def get(self, request, *args, **kwargs):
+        painting = self.get_queryset()
+        serializer = self.serializer_class(painting, many=True)
+
+        response = {
+            'params': self.get_params(),
+            'paintings': serializer.data
+        }
+        return Response(response, status=status.HTTP_200_OK)
