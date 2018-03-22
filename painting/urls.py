@@ -8,12 +8,12 @@ max_cost = '(&max_cost=(?P<max_cost>[0-9]+))?'
 min_year = '(&min_year=(?P<min_year>[0-9]+))?'
 max_year = '(&max_year=(?P<max_year>[0-9]+))?'
 
-techniques = '(&techniques=(?P<techniques>[a-zа-я,]+))?'
+techniques = '(&techniques=(?P<techniques>[a-zа-яA-ZА-Я,]+))?'
 
-genres = '(&genres=(?P<genres>[a-zа-я,]+))?'
+genres = '(&genres=(?P<genres>[a-zа-яA-ZА-Я,]+))?'
 
 search_url = r'^' + ''.join((min_cost, max_cost, min_year,
-                            max_year, techniques, genres)) + '$'
+                             max_year, techniques, genres)) + '$'
 
 urlpatterns = [
     url(r'^add/$', PaintingAddView.as_view(), name='painting_add'),
