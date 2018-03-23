@@ -10,7 +10,7 @@ class HomeView(LoginRequiredMixin, View):
     login_url = '/login/'
 
     def get(self, request):
-        return redirect('home')
+        return redirect('profile_info')
 
 
 class SearchView(View):
