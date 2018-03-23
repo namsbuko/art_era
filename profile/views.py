@@ -71,6 +71,14 @@ class ProfileMessageView(LoginRequiredMixin, TemplateView):
     template_name = 'profile/messages.html'
 
 
+class ProfileNotificationView(LoginRequiredMixin, TemplateView):
+    template_name = 'profile/notification.html'
+
+
+class ProfileCabinetView(LoginRequiredMixin, TemplateView):
+    template_name = 'profile/cabinet.html'
+
+
 class ProfileDetailView(LoginRequiredMixin, View):
     template_name = 'profile/info.html'
     login_url = 'login'
