@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import TemplateView
 
 from painting.models import Painting
+from profile.models import Profile
 
 
 class HomeView(LoginRequiredMixin, View):
@@ -17,12 +18,10 @@ class SearchView(View):
     template_name = 'core/search.html'
 
     def get(self, request):
-        qs = Painting.objects.all()
         context = {
             'profile': request.user.profile if request.user.is_authenticated else None,
             'painting_count': Painting.objects.count(),
-            'paintings': qs,
-            'genres': ['жанр1', 'жанр2'],
-            'techniques': ['техника1', 'техника2'],
+            'paintings': Painting.objects.all(),
+            'profiles': Profile.objects.annotate(paintings_count=Count('paintings'))
         }
         return render(request, self.template_name, context)
