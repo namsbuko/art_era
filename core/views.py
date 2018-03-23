@@ -1,15 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import TemplateView
 
 from painting.models import Painting
 
 
-class HomeView(LoginRequiredMixin, TemplateView):
+class HomeView(LoginRequiredMixin, View):
     login_url = '/login/'
 
-    template_name = 'core/home.html'
+    def get(self, request):
+        return redirect('home')
 
 
 class SearchView(View):

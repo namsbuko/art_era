@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from profile.forms import SignUpForm, ProfileEditForm
 from profile.models import Profile
 
+
 class SignUpView(View):
     form_class = SignUpForm
     template_name = 'registration/signup.html'
