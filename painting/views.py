@@ -74,7 +74,7 @@ class PaintingListView(generics.ListAPIView):
     def get_params(self):
         params = Painting.objects\
             .aggregate(min_cost=Min('cost'), max_cost=Max('cost'),
-                       max_year=Min('creation_year'), min_year=Max('creation_year'))
+                       min_year=Min('creation_year'), max_year=Max('creation_year'))
         return {
             'genres': Painting.GENRES,
             'techniques': Painting.TECHNIQUES,
