@@ -7,16 +7,22 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    fio = models.CharField(max_length=100, blank=True, default='')
-    phone = models.CharField(max_length=15, blank=True, default='')
-
-    city = models.CharField(max_length=30, blank=True, default='')
+    fio = models.CharField(max_length=100, blank=True, default='',
+                           verbose_name='имя пользователя')
+    phone = models.CharField(max_length=15, blank=True, default='',
+                             verbose_name='телефон')
+    city = models.CharField(max_length=30, blank=True, default='',
+                            verbose_name='город')
     longitude = models.FloatField(blank=True, default=0.0)
     latitude = models.FloatField(blank=True, default=0.0)
-    birthday = models.CharField(max_length=30, blank=True, default='')
-    about_yourself = models.TextField(max_length=5000, blank=True, default='')
-    status = models.CharField(max_length=150, blank=True, default='')
-    avatar = models.FileField(upload_to='avatars/%Y/%m/%d', blank=True, null=True)
+    birthday = models.CharField(max_length=30, blank=True, default='',
+                                verbose_name='дата рождения')
+    about_yourself = models.TextField(max_length=5000, blank=True, default='',
+                                      verbose_name='о себе')
+    status = models.CharField(max_length=150, blank=True, default='',
+                              verbose_name='статус')
+    avatar = models.FileField(upload_to='avatars/%Y/%m/%d', blank=True, null=True,
+                              verbose_name='аватар')
 
     @property
     def email(self):
