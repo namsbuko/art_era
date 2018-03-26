@@ -97,7 +97,7 @@ class PaintingListView(generics.ListAPIView):
         if techniques:
             f &= Q(technique__in=filter(None, techniques.split(',')))
 
-        return Painting.objects.filter(f)
+        return Painting.objects.filter(f)[:12]
 
     def get(self, request, *args, **kwargs):
         painting = self.get_queryset()
